@@ -1,0 +1,479 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>3-Year CS Career Roadmap</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=DM+Sans:wght@300;400;500;600&display=swap');
+
+  *{margin:0;padding:0;box-sizing:border-box}
+  :root{
+    --bg:#0a0c10;
+    --surface:#12151c;
+    --surface2:#1a1e28;
+    --border:#2a2f3d;
+    --text:#e8eaf0;
+    --muted:#6b7280;
+    --accent:#6c63ff;
+    --c1:#6c63ff;--c1l:#a89cff;
+    --c2:#00d4aa;--c2l:#5eecd3;
+    --c3:#ff6b6b;--c3l:#ff9e9e;
+    --c4:#ffa94d;--c4l:#ffd08a;
+    --c5:#4dabf7;--c5l:#9bd4fc;
+    --c6:#f06292;--c6l:#f48fb1;
+    --c7:#69db7c;--c7l:#a8f5b4;
+    --c8:#da77f2;--c8l:#efb3fb;
+    --c9:#ff922b;--c9l:#ffc078;
+    --c10:#74c0fc;--c10l:#bde0fd;
+    --mono:'Space Mono',monospace;
+    --sans:'DM Sans',sans-serif;
+  }
+  body{background:var(--bg);color:var(--text);font-family:var(--sans);min-height:100vh;overflow-x:hidden}
+
+  header{padding:2rem 2.5rem 1.5rem;border-bottom:1px solid var(--border)}
+  .header-top{display:flex;align-items:flex-start;justify-content:space-between;flex-wrap:wrap;gap:1rem}
+  h1{font-family:var(--mono);font-size:1.4rem;color:#fff;letter-spacing:-.02em}
+  h1 span{color:var(--accent)}
+  .tagline{font-size:.8rem;color:var(--muted);margin-top:.4rem;font-family:var(--mono)}
+  .badge{background:var(--surface2);border:1px solid var(--border);border-radius:20px;padding:.35rem .9rem;font-size:.75rem;color:var(--muted);font-family:var(--mono);white-space:nowrap}
+
+  .year-tabs{display:flex;gap:.5rem;padding:1.25rem 2.5rem;border-bottom:1px solid var(--border);overflow-x:auto}
+  .tab{padding:.5rem 1.25rem;border-radius:6px;border:1px solid var(--border);background:transparent;color:var(--muted);font-family:var(--mono);font-size:.8rem;cursor:pointer;transition:all .2s;white-space:nowrap}
+  .tab:hover{border-color:var(--accent);color:var(--text)}
+  .tab.active{background:var(--accent);border-color:var(--accent);color:#fff}
+
+  .legend{display:flex;flex-wrap:wrap;gap:.6rem;padding:1rem 2.5rem;border-bottom:1px solid var(--border)}
+  .leg-item{display:flex;align-items:center;gap:.4rem;font-size:.72rem;color:var(--muted)}
+  .leg-dot{width:8px;height:8px;border-radius:2px;flex-shrink:0}
+
+  .chart-wrap{overflow-x:auto;padding:1.5rem 2.5rem 2rem}
+  .chart{min-width:900px}
+
+  .timeline-header{display:grid;margin-left:190px;margin-bottom:.5rem;position:relative}
+  .tl-label{font-family:var(--mono);font-size:.65rem;color:var(--muted);text-align:center}
+
+  .track{display:flex;align-items:flex-start;margin-bottom:.5rem;min-height:36px}
+  .track-label{width:185px;flex-shrink:0;padding-right:1rem;font-size:.75rem;color:var(--muted);font-family:var(--mono);padding-top:8px;line-height:1.3}
+  .track-label strong{color:var(--text);display:block;font-size:.7rem}
+  .track-bars{flex:1;position:relative;height:36px;background:var(--surface);border-radius:4px}
+
+  .bar{position:absolute;height:28px;top:4px;border-radius:4px;cursor:pointer;transition:all .15s;display:flex;align-items:center;overflow:hidden;border:1px solid transparent}
+  .bar:hover{filter:brightness(1.2);z-index:10;transform:scaleY(1.05)}
+  .bar-label{font-size:.6rem;font-family:var(--mono);padding:0 6px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;font-weight:700}
+
+  .tooltip{position:fixed;background:#1e2330;border:1px solid var(--border);border-radius:8px;padding:1rem;max-width:280px;z-index:1000;display:none;pointer-events:none;box-shadow:0 8px 32px rgba(0,0,0,.5)}
+  .tt-title{font-family:var(--mono);font-size:.75rem;font-weight:700;margin-bottom:.5rem;color:#fff}
+  .tt-days{font-family:var(--mono);font-size:.65rem;color:var(--muted);margin-bottom:.6rem}
+  .tt-section{margin-bottom:.4rem}
+  .tt-section-label{font-size:.62rem;color:var(--muted);text-transform:uppercase;letter-spacing:.06em;margin-bottom:.2rem}
+  .tt-section-value{font-size:.7rem;color:var(--text);line-height:1.5}
+  .tt-output{font-size:.7rem;color:var(--c2);margin-top:.3rem;font-family:var(--mono)}
+
+  .year-header{font-family:var(--mono);font-size:.85rem;color:var(--accent);margin-bottom:1rem;padding-bottom:.5rem;border-bottom:1px solid var(--border)}
+  .year-desc{font-size:.75rem;color:var(--muted);margin-top:.25rem;font-family:var(--sans)}
+
+  .stats-row{display:flex;gap:1rem;flex-wrap:wrap;padding:0 2.5rem 1.5rem}
+  .stat{background:var(--surface2);border:1px solid var(--border);border-radius:8px;padding:.75rem 1.25rem;flex:1;min-width:140px}
+  .stat-val{font-family:var(--mono);font-size:1.3rem;font-weight:700;color:var(--accent)}
+  .stat-lbl{font-size:.7rem;color:var(--muted);margin-top:.2rem}
+
+  .grid-line{position:absolute;top:0;bottom:0;width:1px;background:var(--border);opacity:.4;pointer-events:none}
+
+  @media(max-width:600px){
+    header{padding:1.25rem}
+    .chart-wrap{padding:1rem}
+    .legend{padding:.75rem 1rem}
+    .year-tabs{padding:.75rem 1rem}
+    .stats-row{padding:0 1rem 1rem}
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="header-top">
+    <div>
+      <h1>3-YEAR <span>CS CAREER ROADMAP</span></h1>
+      <div class="tagline">// Software Engineer Path · Day 1 → Day 1095 · Google/Amazon Ready</div>
+    </div>
+    <div class="badge">1095 DAYS · 10 TRACKS · FAANG READY</div>
+  </div>
+</header>
+
+<div class="year-tabs">
+  <button class="tab active" onclick="showYear(1,this)">📘 Year 1 — Fundamentals (Day 1–365)</button>
+  <button class="tab" onclick="showYear(2,this)">📗 Year 2 — Intermediate (Day 366–730)</button>
+  <button class="tab" onclick="showYear(3,this)">📕 Year 3 — Advanced (Day 731–1095)</button>
+</div>
+
+<div class="legend">
+  <div class="leg-item"><div class="leg-dot" style="background:#6c63ff"></div>Programming</div>
+  <div class="leg-item"><div class="leg-dot" style="background:#00d4aa"></div>DSA</div>
+  <div class="leg-item"><div class="leg-dot" style="background:#ff6b6b"></div>Web Dev</div>
+  <div class="leg-item"><div class="leg-dot" style="background:#ffa94d"></div>Databases</div>
+  <div class="leg-item"><div class="leg-dot" style="background:#4dabf7"></div>System Design</div>
+  <div class="leg-item"><div class="leg-dot" style="background:#f06292"></div>Projects</div>
+  <div class="leg-item"><div class="leg-dot" style="background:#69db7c"></div>Open Source</div>
+  <div class="leg-item"><div class="leg-dot" style="background:#da77f2"></div>Internship Prep</div>
+  <div class="leg-item"><div class="leg-dot" style="background:#ff922b"></div>Aptitude</div>
+  <div class="leg-item"><div class="leg-dot" style="background:#74c0fc"></div>Resume</div>
+</div>
+
+<div class="stats-row" id="stats"></div>
+<div class="chart-wrap"><div class="chart" id="chart"></div></div>
+
+<div class="tooltip" id="tooltip"></div>
+
+<script>
+const TRACKS = [
+  {id:'prog',label:'Programming',sub:'Python · Java · C++',color:'#6c63ff',bg:'rgba(108,99,255,.15)'},
+  {id:'dsa',label:'DSA',sub:'Data Structures & Algorithms',color:'#00d4aa',bg:'rgba(0,212,170,.15)'},
+  {id:'web',label:'Web Dev',sub:'Frontend + Backend',color:'#ff6b6b',bg:'rgba(255,107,107,.15)'},
+  {id:'db',label:'Databases',sub:'MySQL · MongoDB',color:'#ffa94d',bg:'rgba(255,169,77,.15)'},
+  {id:'sys',label:'System Design',sub:'Architecture & Scalability',color:'#4dabf7',bg:'rgba(77,171,247,.15)'},
+  {id:'proj',label:'Projects',sub:'Beginner → Advanced',color:'#f06292',bg:'rgba(240,98,146,.15)'},
+  {id:'oss',label:'Open Source',sub:'GitHub · Contributions',color:'#69db7c',bg:'rgba(105,219,124,.15)'},
+  {id:'intern',label:'Internship Prep',sub:'Applications & Mocks',color:'#da77f2',bg:'rgba(218,119,242,.15)'},
+  {id:'apt',label:'Aptitude',sub:'Quant · Logical · CS Theory',color:'#ff922b',bg:'rgba(255,146,43,.15)'},
+  {id:'resume',label:'Resume & Portfolio',sub:'CV · GitHub · LinkedIn',color:'#74c0fc',bg:'rgba(116,192,252,.15)'},
+];
+
+const DATA = {
+  1: {
+    days: 365,
+    label: 'Year 1',
+    desc: 'Build strong foundations — learn to code, solve problems, build first projects',
+    stats: [
+      {val:'365',lbl:'Days'},
+      {val:'10',lbl:'Skill Tracks'},
+      {val:'200+',lbl:'Problems to Solve'},
+      {val:'3',lbl:'Projects to Build'},
+    ],
+    blocks: {
+      prog:[
+        {s:1,e:15,title:'Python Basics',topics:'Variables, data types, loops, if-else, functions, strings',practice:'Write 20 small programs (calculator, grade checker, pattern printing)',output:'GitHub Repo: python-basics'},
+        {s:16,e:30,title:'Python OOP',topics:'Classes, objects, inheritance, polymorphism, file I/O',practice:'Build 15 OOP programs (bank account, student class)',output:'Project: Simple Bank App (Python)'},
+        {s:31,e:50,title:'Java Basics',topics:'Syntax, variables, loops, arrays, methods, Scanner input',practice:'20 Java programs (same logic as Python, compare both)',output:'GitHub Repo: java-basics'},
+        {s:51,e:70,title:'Java OOP',topics:'Classes, interfaces, abstract, exception handling, Collections',practice:'15 programs using ArrayList, HashMap',output:'Project: Student Record System (Java)'},
+        {s:71,e:90,title:'C++ Basics',topics:'Pointers, arrays, structs, functions, memory basics',practice:'20 C++ programs (pointer arithmetic, array operations)',output:'GitHub Repo: cpp-basics'},
+        {s:91,e:110,title:'C++ STL',topics:'Vectors, maps, sets, pairs, iterators, algorithms',practice:'25 STL-based programs and problems',output:'GitHub Repo: cpp-stl-practice'},
+        {s:111,e:130,title:'Python Advanced',topics:'List comprehension, decorators, generators, lambda, modules',practice:'10 programs using advanced concepts',output:'Project: File Organizer Script'},
+        {s:300,e:320,title:'Revision: All Languages',topics:'Revisit key concepts — syntax, OOP, standard libraries',practice:'30 mixed problems (10 each language)',output:'Comparison notes on GitHub'},
+      ],
+      dsa:[
+        {s:31,e:50,title:'Arrays & Strings',topics:'Traversal, two pointers, sliding window, prefix sum',practice:'30 LeetCode easy/medium problems',output:'LeetCode profile started'},
+        {s:51,e:70,title:'Linked Lists',topics:'Singly, doubly, circular, reversal, cycle detection',practice:'25 problems (LeetCode + GFG)',output:'Linked list library in Python'},
+        {s:71,e:90,title:'Stacks & Queues',topics:'Implementation, monotonic stack, balanced brackets, BFS intro',practice:'20 problems',output:'Stack/Queue implementations in Java'},
+        {s:91,e:115,title:'Trees & BST',topics:'Binary tree, BST, traversals (inorder/preorder/postorder), height',practice:'30 tree problems',output:'Tree visualizer mini project'},
+        {s:116,e:140,title:'Recursion & Backtracking',topics:'Base cases, tree recursion, permutations, N-Queens',practice:'20 recursion problems',output:'Recursion problem set repo'},
+        {s:141,e:165,title:'Sorting Algorithms',topics:'Bubble, selection, insertion, merge, quick, counting sort',practice:'Implement all 6 sorts + 15 problems',output:'Sorting visualizer (Python)'},
+        {s:166,e:190,title:'Hashing & Heaps',topics:'HashMap, HashSet, min/max heap, priority queue',practice:'25 problems on hashing',output:'Hashing cheat sheet'},
+        {s:191,e:215,title:'Graphs Basics',topics:'Adjacency list/matrix, BFS, DFS, connected components',practice:'20 graph problems',output:'Graph traversal repo'},
+        {s:320,e:345,title:'DSA Revision Cycle',topics:'Revisit all structures — do timed practice',practice:'50 mixed problems (Easy + Medium)',output:'Problem log spreadsheet'},
+      ],
+      web:[
+        {s:100,e:120,title:'HTML5 & CSS3',topics:'Semantic HTML, selectors, box model, positioning, colors',practice:'Build 3 static web pages',output:'Static Portfolio Page'},
+        {s:121,e:145,title:'JavaScript Basics',topics:'Variables, DOM, events, functions, fetch API, JSON',practice:'5 mini-projects (counter, quiz, to-do)',output:'JS Mini Projects Repo'},
+        {s:146,e:170,title:'Responsive Design',topics:'Flexbox, CSS Grid, media queries, mobile-first',practice:'Redesign previous pages as mobile-friendly',output:'Responsive Portfolio Website (deployed)'},
+        {s:295,e:330,title:'React Basics',topics:'Components, props, state, hooks (useState, useEffect), JSX',practice:'Build Todo App + Weather App in React',output:'React Projects Repo'},
+      ],
+      db:[
+        {s:150,e:175,title:'MySQL Basics',topics:'DDL (CREATE, DROP), DML (INSERT, UPDATE, DELETE), SELECT',practice:'Create student DB, run 20 queries',output:'Student Database Project'},
+        {s:176,e:205,title:'SQL Intermediate',topics:'Joins (INNER, LEFT, RIGHT), subqueries, GROUP BY, indexes',practice:'30 SQL queries on sample datasets',output:'SQL Query Practice Repo'},
+        {s:206,e:225,title:'MongoDB Basics',topics:'Documents, collections, CRUD operations, Mongo shell',practice:'10 CRUD operations on a sample DB',output:'MongoDB mini project'},
+      ],
+      sys:[
+        {s:330,e:365,title:'System Design Intro',topics:'Client-server model, HTTP/HTTPS, REST APIs, JSON, basic architecture',practice:'Design 2 simple systems (URL shortener, note app)',output:'System Design Notes (PDF/GitHub)'},
+      ],
+      proj:[
+        {s:60,e:90,title:'Beginner Projects',topics:'Calculator, number guessing game, temperature converter',practice:'3 complete programs with user input',output:'GitHub: beginner-projects repo'},
+        {s:150,e:185,title:'Portfolio Website',topics:'HTML + CSS + JS — personal portfolio with about, skills, contact',practice:'Build and deploy full portfolio',output:'Live Website (GitHub Pages)'},
+        {s:255,e:295,title:'Blog App (Frontend)',topics:'Multi-page JS app — create, read, delete posts using localStorage',practice:'Full working app with clean UI',output:'Deployed Blog App'},
+      ],
+      oss:[
+        {s:190,e:215,title:'Git & GitHub Basics',topics:'Init, commit, push, pull, branch, merge, PR workflow',practice:'10 meaningful commits to personal repos',output:'Structured GitHub Profile'},
+        {s:216,e:245,title:'First Contribution',topics:'Find good-first-issue, read contribution guide, fix docs/bugs',practice:'Submit 2 pull requests to open source repos',output:'First merged PR badge'},
+      ],
+      intern:[
+        {s:310,e:345,title:'Internship Research',topics:'List target companies, understand JD keywords, eligibility criteria',practice:'Research 20 companies, track in spreadsheet',output:'Target company list + deadlines'},
+        {s:346,e:365,title:'First Applications',topics:'Apply to 10 internships (campus + off-campus)',practice:'Customize resume for each role',output:'10 Applications submitted'},
+      ],
+      apt:[
+        {s:230,e:260,title:'Quantitative Aptitude',topics:'Number system, ratio, percentage, time-speed, averages',practice:'50 aptitude questions (IndiaBix, PrepInsta)',output:'Score tracker spreadsheet'},
+        {s:261,e:290,title:'Logical Reasoning',topics:'Series, puzzles, blood relations, direction, coding-decoding',practice:'50 reasoning questions',output:'Accuracy improvement log'},
+        {s:291,e:320,title:'Verbal Ability',topics:'Reading comprehension, grammar, vocabulary, sentence correction',practice:'30 verbal questions daily',output:'Verbal score benchmark'},
+      ],
+      resume:[
+        {s:340,e:358,title:'Resume v1',topics:'1-page resume: education, skills, projects, certifications',practice:'Write 3 drafts, get feedback',output:'Resume PDF on GitHub'},
+        {s:359,e:365,title:'LinkedIn & GitHub Setup',topics:'Professional photo, summary, skills, pinned repos',practice:'Connect with 50+ classmates and professionals',output:'LinkedIn profile (500+ views target)'},
+      ],
+    }
+  },
+  2: {
+    days: 365,
+    label: 'Year 2',
+    desc: 'Go intermediate — real-world projects, internships, and deeper CS knowledge',
+    stats: [
+      {val:'365',lbl:'Days'},
+      {val:'10',lbl:'Skill Tracks'},
+      {val:'300+',lbl:'Problems to Solve'},
+      {val:'5',lbl:'Projects to Build'},
+    ],
+    blocks: {
+      prog:[
+        {s:1,e:20,title:'Advanced Python',topics:'APIs (requests), threading, asyncio, virtual environments, pip',practice:'3 API-based projects (weather app, news fetcher)',output:'Python API Projects Repo'},
+        {s:21,e:45,title:'Java Spring Basics',topics:'Spring Boot, REST controllers, JPA, dependency injection',practice:'Build a simple REST API with Spring Boot',output:'Spring Boot REST API project'},
+        {s:46,e:70,title:'C++ Advanced',topics:'Templates, smart pointers, RAII, move semantics',practice:'20 advanced C++ programs',output:'C++ Advanced Concepts Repo'},
+        {s:200,e:220,title:'Code Quality',topics:'Clean code principles, SOLID, DRY, design patterns (basic)',practice:'Refactor 3 old projects with clean code',output:'Refactored codebase on GitHub'},
+      ],
+      dsa:[
+        {s:1,e:35,title:'Dynamic Programming',topics:'Memoization, tabulation, Fibonacci, knapsack, LCS, LIS',practice:'40 DP problems (Easy → Medium)',output:'DP problem set (annotated)'},
+        {s:36,e:70,title:'Graph Algorithms',topics:'BFS/DFS deep dive, Dijkstra, Bellman-Ford, Union-Find',practice:'35 graph problems',output:'Graph algorithm visualizer'},
+        {s:71,e:100,title:'Advanced Trees',topics:'AVL trees, segment trees, Trie, fenwick tree',practice:'25 tree problems',output:'Trie implementation project'},
+        {s:101,e:130,title:'Greedy Algorithms',topics:'Activity selection, Huffman coding, interval scheduling',practice:'30 greedy problems',output:'Greedy algorithms cheat sheet'},
+        {s:195,e:230,title:'DSA Mock Interviews',topics:'Timed problem solving (45 min per problem)',practice:'5 mock interview sessions with peer',output:'Interview performance log'},
+        {s:300,e:335,title:'LeetCode Grinding',topics:'Medium problems across all topics (focus on patterns)',practice:'60 medium problems in 35 days',output:'LeetCode profile: 200+ solved'},
+      ],
+      web:[
+        {s:1,e:35,title:'React.js Deep Dive',topics:'useContext, useReducer, custom hooks, React Router, Redux basics',practice:'3 React apps (shopping cart, dashboard)',output:'React Portfolio App (deployed)'},
+        {s:36,e:70,title:'Node.js & Express',topics:'Routing, middleware, REST API design, JWT auth, bcrypt',practice:'Build complete REST API with auth',output:'Backend API Repo'},
+        {s:71,e:100,title:'Full Stack (MERN)',topics:'Connect React frontend with Express backend + MongoDB',practice:'Build full-stack CRUD application',output:'Full Stack App (deployed on Render)'},
+        {s:101,e:130,title:'Web Security Basics',topics:'CORS, XSS, CSRF, SQL injection basics, HTTPS, env variables',practice:'Secure existing projects',output:'Security checklist on GitHub'},
+        {s:260,e:295,title:'Testing & Deployment',topics:'Jest unit testing, GitHub Actions CI/CD, Vercel/Netlify deploy',practice:'Add tests to 2 existing projects',output:'CI/CD pipeline on GitHub'},
+      ],
+      db:[
+        {s:131,e:155,title:'MySQL Advanced',topics:'Stored procedures, triggers, views, transactions, ACID',practice:'20 advanced queries + procedure writing',output:'Advanced MySQL project'},
+        {s:156,e:180,title:'Database Design',topics:'Normalization (1NF-3NF), ERD, schema design, foreign keys',practice:'Design schemas for 3 real-world apps',output:'ERD diagrams on GitHub'},
+        {s:181,e:205,title:'Redis Basics',topics:'Key-value store, expiry, caching patterns, pub/sub',practice:'Add Redis caching to Node.js API',output:'Cached API project'},
+      ],
+      sys:[
+        {s:115,e:150,title:'Load Balancing & Caching',topics:'Load balancer types, CDN, Redis cache, horizontal vs vertical scaling',practice:'Write system design document for Twitter',output:'System Design Doc: Twitter'},
+        {s:151,e:185,title:'Microservices Basics',topics:'Service boundaries, REST between services, Docker intro',practice:'Build 2-service mini system',output:'Microservices demo repo'},
+        {s:280,e:315,title:'HLD Introduction',topics:'High-level design: components, databases, APIs, trade-offs',practice:'Design 2 systems (Instagram, Pastebin)',output:'HLD design docs'},
+      ],
+      proj:[
+        {s:25,e:75,title:'E-commerce Backend',topics:'Node.js + MongoDB: products, cart, orders, auth, payment mock',practice:'Full REST API with 15+ endpoints',output:'GitHub + Postman collection'},
+        {s:115,e:165,title:'Full Stack Social App',topics:'MERN: posts, likes, comments, user auth, image upload',practice:'Complete app with 5+ features',output:'Deployed app + demo video'},
+        {s:235,e:275,title:'ML Data Analysis Project',topics:'Kaggle dataset, EDA, visualizations, prediction model',practice:'Full notebook with insights',output:'Kaggle notebook + GitHub'},
+      ],
+      oss:[
+        {s:65,e:100,title:'Open Source Contributions',topics:'Pick 2 active repos, study codebase, fix issues',practice:'Submit 3 PRs, respond to review feedback',output:'2+ Merged PRs'},
+        {s:165,e:200,title:'Personal OSS Library',topics:'Build a small Python/JS utility package',practice:'Write docs, tests, and publish',output:'Published npm / PyPI package'},
+        {s:270,e:300,title:'Tech Blog Writing',topics:'Write about projects, learnings, tutorials',practice:'Publish 3 technical blog posts',output:'Dev.to / Hashnode blog (3 posts)'},
+      ],
+      intern:[
+        {s:1,e:40,title:'DSA for Interviews',topics:'LeetCode patterns: sliding window, two pointers, binary search',practice:'100 problems in 40 days',output:'LeetCode 150+ solved'},
+        {s:195,e:235,title:'Mock Technical Interviews',topics:'Coding rounds, whiteboard style, explain approach out loud',practice:'10 mock interviews (Pramp / peer)',output:'Feedback notes + improvement plan'},
+        {s:240,e:280,title:'Internship Applications',topics:'Apply to 20 companies (startups, product companies)',practice:'Customize each resume + cover letter',output:'20+ applications submitted'},
+        {s:310,e:340,title:'Interview Follow-ups',topics:'Track status, prepare for rounds, negotiate timeline',practice:'Prepare answers for 20 HR questions',output:'Internship offer (target)'},
+      ],
+      apt:[
+        {s:140,e:170,title:'Advanced Aptitude',topics:'Probability, permutations, time-work, profit-loss',practice:'100 timed questions',output:'95%+ accuracy target'},
+        {s:171,e:200,title:'CS Fundamentals (OS)',topics:'Processes, threads, deadlock, memory management, scheduling',practice:'50 OS MCQs + short answers',output:'OS revision sheet'},
+        {s:201,e:230,title:'DBMS & CN Basics',topics:'Transactions, normalization, TCP/IP, DNS, HTTP, sockets',practice:'50 DBMS + 30 CN questions',output:'DBMS/CN notes on GitHub'},
+      ],
+      resume:[
+        {s:235,e:255,title:'Resume v2',topics:'Add internship/project updates, ATS keywords, action verbs',practice:'Get 3 people to review it',output:'Resume v2 PDF'},
+        {s:256,e:280,title:'Portfolio v2',topics:'Add project demos, GitHub stats card, new design',practice:'Deploy updated portfolio',output:'Portfolio with 5+ projects'},
+      ],
+    }
+  },
+  3: {
+    days: 365,
+    label: 'Year 3',
+    desc: 'Go advanced — system design, placements, FAANG preparation, and job offers',
+    stats: [
+      {val:'365',lbl:'Days'},
+      {val:'10',lbl:'Skill Tracks'},
+      {val:'400+',lbl:'Problems to Solve'},
+      {val:'1',lbl:'Job Offer Target'},
+    ],
+    blocks: {
+      prog:[
+        {s:1,e:25,title:'System-Level Programming',topics:'C++: memory management, OS interaction, performance optimization',practice:'10 system-level programs',output:'Systems programming repo'},
+        {s:26,e:55,title:'Design Patterns',topics:'GoF patterns: Singleton, Factory, Observer, Strategy, Adapter',practice:'Implement 5 patterns in Java + Python',output:'Design patterns repo with examples'},
+        {s:56,e:80,title:'TypeScript',topics:'Types, interfaces, generics, decorators, advanced TS config',practice:'Convert 2 JS projects to TypeScript',output:'TypeScript projects repo'},
+      ],
+      dsa:[
+        {s:1,e:40,title:'Hard DP Problems',topics:'Bitmask DP, digit DP, interval DP, partition DP',practice:'50 hard DP problems on LeetCode',output:'Hard DP annotated problem set'},
+        {s:41,e:80,title:'Advanced Graphs',topics:'Topological sort, SCC, bridges, articulation points, min spanning tree',practice:'40 advanced graph problems',output:'Graph algorithms repo (advanced)'},
+        {s:81,e:110,title:'String Algorithms',topics:'KMP, Z-algorithm, Rabin-Karp, suffix arrays, Manacher',practice:'30 string problems',output:'String algorithms cheat sheet'},
+        {s:111,e:140,title:'Bit Manipulation & Math',topics:'Bitwise ops, sieve of eratosthenes, modular arithmetic, fast power',practice:'30 bit + math problems',output:'Math tricks doc for interviews'},
+        {s:170,e:210,title:'LeetCode Contests',topics:'Weekly + biweekly contests on LeetCode, track ranking',practice:'8 contests (2 per month)',output:'LeetCode contest rating 1600+'},
+        {s:245,e:290,title:'Final DSA Grind',topics:'Company-specific problems (Google, Amazon, Microsoft tagged)',practice:'100 company-specific problems',output:'LeetCode 400+ solved'},
+      ],
+      web:[
+        {s:26,e:55,title:'Next.js & SSR',topics:'Server-side rendering, API routes, image optimization, Vercel deploy',practice:'Build SSR blog + e-commerce page',output:'Next.js project (deployed)'},
+        {s:56,e:85,title:'Docker & CI/CD',topics:'Dockerfile, docker-compose, GitHub Actions, automated testing',practice:'Dockerize 2 apps + add CI pipeline',output:'Dockerized full stack app'},
+        {s:86,e:115,title:'Cloud Basics (AWS)',topics:'EC2, S3, RDS, Lambda, IAM basics, deploy app to AWS',practice:'Deploy 1 app on AWS',output:'AWS-deployed project + certificate'},
+        {s:200,e:230,title:'WebSockets & Real-time',topics:'Socket.io, real-time chat, notifications, event-driven architecture',practice:'Build real-time chat app',output:'Real-time chat app (deployed)'},
+      ],
+      db:[
+        {s:50,e:80,title:'Query Optimization',topics:'EXPLAIN, indexes deep dive, query planner, slow query log',practice:'Optimize 10 slow queries',output:'Query optimization case study'},
+        {s:81,e:110,title:'Distributed Databases',topics:'Sharding, replication, CAP theorem, eventual consistency',practice:'Write distributed DB design doc',output:'Design doc: distributed database'},
+      ],
+      sys:[
+        {s:1,e:45,title:'System Design Deep Dive',topics:'URL shortener, design Uber, design WhatsApp (LLD + HLD)',practice:'Design 5 full systems end-to-end',output:'System design portfolio (5 docs)'},
+        {s:46,e:90,title:'Scalability & Reliability',topics:'Horizontal scaling, load balancers, consistent hashing, rate limiting',practice:'3 case studies (Netflix, Amazon, Google)',output:'Architecture case study repo'},
+        {s:91,e:130,title:'LLD Deep Dive',topics:'Low-level design: parking lot, chess, book my show, ATM',practice:'Design + code 3 LLD problems',output:'LLD solutions on GitHub'},
+        {s:220,e:255,title:'Mock System Design Rounds',topics:'Full 45-min system design interview format',practice:'5 mock system design interviews',output:'Feedback improvement report'},
+      ],
+      proj:[
+        {s:30,e:90,title:'Advanced Full Stack App',topics:'Microservices + Docker + CI/CD + cloud deploy (production-grade)',practice:'Full app with 10+ features, auth, real-time',output:'GitHub + deployed + case study blog'},
+        {s:150,e:210,title:'Capstone Project',topics:'Original unique idea — AI integration or real-world problem solving',practice:'Ship production-ready app with users',output:'Deployed app + Product Hunt launch'},
+        {s:260,e:310,title:'Competitive Contribution',topics:'Contribute major feature to popular open source project',practice:'5+ merged PRs on significant repo',output:'Recognized contributor (100+ stars)'},
+      ],
+      oss:[
+        {s:90,e:125,title:'Lead Open Source Project',topics:'Create and grow own GitHub project with good documentation',practice:'Get 50+ stars, 5+ contributors',output:'OSS project with community'},
+        {s:125,e:155,title:'Technical Writing',topics:'Write deep-dive blog posts, tutorials, dev notes',practice:'5 published technical articles',output:'5 blog posts (Medium/Hashnode)'},
+      ],
+      intern:[
+        {s:1,e:40,title:'FAANG Research & Prep Plan',topics:'Study company engineering blogs, past interview experiences',practice:'Make 90-day placement prep plan',output:'Structured prep plan doc'},
+        {s:170,e:215,title:'Placement Preparation',topics:'200 LeetCode problems + system design rounds + behavioral',practice:'Daily 3 problems + 1 system design/week',output:'LeetCode 400+ solved'},
+        {s:260,e:305,title:'Mock Interviews (Full Round)',topics:'Coding + system design + HR in one session (3 hrs)',practice:'10 full mock interview sessions',output:'Detailed feedback per session'},
+        {s:305,e:345,title:'Applications (Product Cos.)',topics:'Apply to Google, Amazon, Microsoft, Flipkart, Atlassian, etc.',practice:'30 targeted applications',output:'Interview calls received'},
+        {s:345,e:365,title:'Offer & Negotiation',topics:'Negotiate salary, compare offers, sign and celebrate!',practice:'Research market salary (levels.fyi)',output:'JOB OFFER ACCEPTED'},
+      ],
+      apt:[
+        {s:20,e:55,title:'OS Deep Dive (Interviews)',topics:'Scheduling, paging, virtual memory, file systems, deadlock',practice:'50 OS interview questions',output:'OS interview prep sheet'},
+        {s:56,e:90,title:'DBMS/CN Interview Prep',topics:'ACID, normalization, TCP vs UDP, HTTP/2, REST vs GraphQL',practice:'50 DBMS + 50 CN questions',output:'CN/DBMS notes — final version'},
+        {s:101,e:135,title:'Behavioral Interviews (STAR)',topics:'Leadership, conflict, failure, impact, teamwork scenarios',practice:'Write 20 STAR-format answers',output:'Behavioral answer bank'},
+        {s:200,e:240,title:'Company-Specific Prep',topics:'Google: coding focus. Amazon: leadership principles. Microsoft: system design',practice:'50 company-tagged problems each',output:'Per-company prep tracker'},
+      ],
+      resume:[
+        {s:130,e:155,title:'Resume v3 (ATS-Optimized)',topics:'Keywords from JDs, strong action verbs, quantified achievements',practice:'A/B test 2 versions, get HR review',output:'ATS-ready Resume v3'},
+        {s:156,e:180,title:'Portfolio v3 (Final)',topics:'Clean design, project demos, GitHub activity, testimonials',practice:'Get feedback from 5 seniors',output:'Portfolio with case studies'},
+        {s:181,e:205,title:'LinkedIn Optimization',topics:'Headline, about, featured, skills endorsements, recommendations',practice:'Reach 500+ connections, post weekly',output:'LinkedIn SSI score 70+'},
+      ],
+    }
+  }
+};
+
+let activeYear = 1;
+
+function showYear(y, btn) {
+  activeYear = y;
+  document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+  btn.classList.add('active');
+  render();
+}
+
+function render() {
+  const d = DATA[activeYear];
+  const totalDays = d.days;
+
+  // Stats
+  document.getElementById('stats').innerHTML = d.stats.map(s =>
+    `<div class="stat"><div class="stat-val">${s.val}</div><div class="stat-lbl">${s.lbl}</div></div>`
+  ).join('');
+
+  // Build chart
+  const LABEL_W = 185;
+  const BAR_W = 700;
+
+  // Generate month labels
+  const months = [];
+  const daysPerMonth = totalDays / 12;
+  for (let i = 0; i < 12; i++) {
+    months.push({label: `M${i+1}`, pct: ((i * daysPerMonth + daysPerMonth/2) / totalDays * 100).toFixed(1)});
+  }
+
+  let html = `<div class="year-header">${d.label}: ${d.desc}<div class="year-desc">Hover over any block to see topics, practice goals, and output</div></div>`;
+
+  // Timeline header
+  html += `<div class="timeline-header" style="grid-template-columns: repeat(12, 1fr)">`;
+  for (let i = 0; i < 12; i++) {
+    html += `<div class="tl-label">Month ${i+1}</div>`;
+  }
+  html += `</div>`;
+
+  // Tracks
+  for (const track of TRACKS) {
+    const blocks = d.blocks[track.id] || [];
+    html += `<div class="track">
+      <div class="track-label"><strong>${track.label}</strong>${track.sub}</div>
+      <div class="track-bars" style="background:${track.bg}20;">`;
+
+    // Grid lines
+    for (let i = 1; i < 12; i++) {
+      const pct = (i / 12 * 100).toFixed(2);
+      html += `<div class="grid-line" style="left:${pct}%"></div>`;
+    }
+
+    for (const b of blocks) {
+      const left = ((b.s - 1) / totalDays * 100).toFixed(2);
+      const width = ((b.e - b.s + 1) / totalDays * 100).toFixed(2);
+      const dataStr = encodeURIComponent(JSON.stringify({
+        title: b.title, s: b.s, e: b.e,
+        topics: b.topics, practice: b.practice, output: b.output,
+        color: track.color, track: track.label
+      }));
+      html += `<div class="bar" 
+        style="left:${left}%;width:${width}%;background:${track.color}26;border-color:${track.color}60;"
+        onmouseenter="showTip(event,'${dataStr}')"
+        onmouseleave="hideTip()">
+        <span class="bar-label" style="color:${track.color}">${b.title}</span>
+      </div>`;
+    }
+
+    html += `</div></div>`;
+  }
+
+  // Day range ruler
+  html += `<div class="track" style="margin-top:.5rem">
+    <div class="track-label" style="font-size:.6rem;color:var(--muted)">Day range</div>
+    <div class="track-bars" style="background:transparent;display:flex;align-items:center">`;
+  const steps = 12;
+  for (let i = 0; i <= steps; i++) {
+    const day = Math.round((i / steps) * totalDays);
+    const left = (i / steps * 100).toFixed(1);
+    html += `<div style="position:absolute;left:${left}%;transform:translateX(-50%);font-size:.6rem;color:var(--muted);font-family:var(--mono)">D${day}</div>`;
+  }
+  html += `</div></div>`;
+
+  document.getElementById('chart').innerHTML = html;
+}
+
+function showTip(e, dataStr) {
+  const d = JSON.parse(decodeURIComponent(dataStr));
+  const tt = document.getElementById('tooltip');
+  tt.innerHTML = `
+    <div class="tt-title" style="color:${d.color}">${d.title}</div>
+    <div class="tt-days">📅 Day ${d.s} – ${d.e} (${d.e - d.s + 1} days) · ${d.track}</div>
+    <div class="tt-section">
+      <div class="tt-section-label">Topics</div>
+      <div class="tt-section-value">${d.topics}</div>
+    </div>
+    <div class="tt-section">
+      <div class="tt-section-label">Practice Goal</div>
+      <div class="tt-section-value">${d.practice}</div>
+    </div>
+    <div class="tt-output">→ Output: ${d.output}</div>
+  `;
+  tt.style.display = 'block';
+  moveTip(e);
+}
+
+function moveTip(e) {
+  const tt = document.getElementById('tooltip');
+  const x = e.clientX + 16;
+  const y = e.clientY - 10;
+  const w = tt.offsetWidth;
+  const h = tt.offsetHeight;
+  tt.style.left = (x + w > window.innerWidth ? x - w - 32 : x) + 'px';
+  tt.style.top = (y + h > window.innerHeight ? y - h : y) + 'px';
+}
+
+function hideTip() {
+  document.getElementById('tooltip').style.display = 'none';
+}
+
+document.addEventListener('mousemove', e => {
+  if (document.getElementById('tooltip').style.display !== 'none') moveTip(e);
+});
+
+render();
+</script>
+</body>
+</html>
